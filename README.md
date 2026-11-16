@@ -2,7 +2,7 @@
 Mini-chaîne DevSecOps locale avec contrôle bloquant
 # SecureGate
 
-Mini-chaîne DevSecOps locale avec contrôle bloquant (PFA-15, EMSI 2026–2027).
+Mini-chaîne DevSecOps locale avec contrôle bloquant 
 
 **Équipe :** BENJELLOUN Abdelkrim, CHOUIEKH Ahmed Mouataz  
 **Encadrant :** Abdellah OUAGUID
