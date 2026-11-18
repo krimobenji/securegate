@@ -33,8 +33,18 @@ livraison est bloquée jusqu'à correction.
 
 ## État d'avancement
 - [x] Sprint 1 : socle (application /health, tests, Makefile)
-- [ ] Sprint 2 : application complète
+- [x] Sprint 2 : application complète
 - [ ] Sprint 3 : contrôles de sécurité
 - [ ] Sprint 4 : orchestrateur et blocage
 - [ ] Sprint 5 : lancement en deux étapes et recette
 - [ ] Sprint 6 : extensions et soutenance
+
+## API de l'application cible
+| Route | Rôle | Codes |
+|---|---|---|
+| GET /health | État et version | 200 |
+| POST /register | Créer un compte (mot de passe haché PBKDF2) | 201, 400, 409 |
+| POST /login | Se connecter | 200, 401 |
+| GET /users?name=... | Rechercher des utilisateurs | 200, 400 |
+
+Couverture de code : `make coverage` (seuil bloquant à 80 %).
