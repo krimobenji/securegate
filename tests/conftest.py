@@ -5,6 +5,10 @@ from app.main import create_app
 
 
 @pytest.fixture
-def client(tmp_path):
-    app = create_app(db_path=str(tmp_path / "test.db"))
-    return app.test_client()
+def db_path(tmp_path):
+    return str(tmp_path / "test.db")
+
+
+@pytest.fixture
+def client(db_path):
+    return create_app(db_path=db_path).test_client()
