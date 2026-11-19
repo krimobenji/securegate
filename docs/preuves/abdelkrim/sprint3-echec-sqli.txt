@@ -1,0 +1,35 @@
+.venv/bin/python security/secret_scan.py app
+Aucun secret détecté.
+./scripts/run_bandit.sh
+Run started:2026-11-19 21:27:45.475309+00:00
+
+Test results:
+>> Issue: [B608:hardcoded_sql_expressions] Possible SQL injection vector through string-based query construction.
+   Severity: Medium   Confidence: Medium
+   CWE: CWE-89 (https://cwe.mitre.org/data/definitions/89.html)
+   More Info: https://bandit.readthedocs.io/en/1.9.4/plugins/b608_hardcoded_sql_expressions.html
+   Location: app/repository.py:46:12
+45	        row = conn.execute(
+46	            "SELECT id, username, password_hash, role FROM users WHERE username = '" + username + "'"
+47	        ).fetchone()
+
+--------------------------------------------------
+
+Code scanned:
+	Total lines of code: 113
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 0
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 1
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 1
+		High: 0
+Files skipped (0):
+make: *** [Makefile:26: bandit] Error 1

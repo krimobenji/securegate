@@ -34,7 +34,7 @@ livraison est bloquée jusqu'à correction.
 ## État d'avancement
 - [x] Sprint 1 : socle (application /health, tests, Makefile)
 - [x] Sprint 2 : application complète
-- [ ] Sprint 3 : contrôles de sécurité
+- [x] Sprint 3 : contrôles de sécurité
 - [ ] Sprint 4 : orchestrateur et blocage
 - [ ] Sprint 5 : lancement en deux étapes et recette
 - [ ] Sprint 6 : extensions et soutenance
@@ -48,3 +48,21 @@ livraison est bloquée jusqu'à correction.
 | GET /users?name=... | Rechercher des utilisateurs | 200, 400 |
 
 Couverture de code : `make coverage` (seuil bloquant à 80 %).
+
+## Contrôles de sécurité
+| Commande | Contrôle | Outil |
+|---|---|---|
+| `make secrets` | Secrets écrits en dur | Détecteur local |
+| `make bandit` | Pratiques dangereuses (gravité MEDIUM et plus) | Bandit |
+| `make semgrep` | Requêtes SQL construites par concaténation | Règles Semgrep maison |
+| `make securite` | Les trois à la suite, arrêt au premier échec | |
+
+## Catalogue de défauts fictifs
+| Défaut | Description | Détecté par |
+|---|---|---|
+| `sqli` | Requête SQL construite par concaténation | Bandit, Semgrep |
+| `secret` | Mot de passe fictif écrit en clair | Détecteur de secrets |
+| `weakhash` | Hachage faible MD5 | Bandit |
+| `bug` | Erreur fonctionnelle (409 devenu 200) | pytest |
+
+Injecter : `make defect NAME=sqli` — Corriger : `make fix NAME=sqli` — Tout remettre sain : `make fix-all`.
