@@ -1,0 +1,23 @@
+rules:
+  - id: securegate-sql-concatenation
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Requête SQL construite par concaténation ou formatage : utiliser une requête
+      paramétrée avec des « ? » et passer les valeurs à part.
+    patterns:
+      - pattern-either:
+          - pattern: '"$SQL" + $Y'
+          - pattern: '"$SQL" % ...'
+          - pattern: '"$SQL".format(...)'
+      - metavariable-regex:
+          metavariable: $SQL
+          regex: (?is).*\b(select|insert|update|delete)\b.*
+
+  - id: securegate-sql-fstring
+    languages: [python]
+    severity: ERROR
+    message: >-
+      Requête SQL construite avec une f-string : utiliser une requête paramétrée
+      avec des « ? » et passer les valeurs à part.
+    pattern-regex: (?i)\bf["'].*\b(select|insert|update|delete)\b.*\{.*\}
