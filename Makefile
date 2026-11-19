@@ -4,7 +4,7 @@ PY     := $(VENV)/bin/python
 export PATH := $(CURDIR)/$(VENV)/bin:$(PATH)
 
 .DEFAULT_GOAL := help
-.PHONY: help setup test coverage secrets bandit semgrep securite
+.PHONY: help setup test coverage secrets bandit semgrep securite defect fix fix-all defects
 
 help: ## Affiche cette aide
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-8s %s\n", $$1, $$2}'
@@ -29,3 +29,15 @@ semgrep: ## Règles Semgrep maison (bloquant)
 	./scripts/run_semgrep.sh
 
 securite: secrets bandit semgrep ## Les trois contrôles de sécurité à la suite
+
+defects: ## Liste les défauts du catalogue et leur état
+	$(PY) scripts/defect.py list
+
+defect: ## Injecte un défaut : make defect NAME=sqli
+	$(PY) scripts/defect.py inject $(NAME)
+
+fix: ## Corrige un défaut : make fix NAME=sqli
+	$(PY) scripts/defect.py fix $(NAME)
+
+fix-all: ## Remet le code sain (corrige tous les défauts)
+	$(PY) scripts/defect.py fix-all
