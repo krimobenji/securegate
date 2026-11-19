@@ -1,0 +1,4 @@
+.venv/bin/python security/secret_scan.py app
+Aucun secret détecté.
+./scripts/run_bandit.sh
+./scripts/run_semgrep.sh
